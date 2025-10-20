@@ -1,186 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3906LB8NYC"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(r)evolve - Revolve to Evolve</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    gtag('config', 'G-3906LB8NYC');
-  </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="(r)evolve - Revolve to Evolve team performance to maximums.">
-  <title>(r)evolve - Revolve to Evolve</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2300D9FF'/><text x='50' y='68' font-family='sans-serif' font-size='48' font-weight='700' fill='white' text-anchor='middle'>(r)</text></svg>">
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #0a0a0a;
-      color: #ffffff;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      overflow: hidden;
-      position: relative;
-    }
-    
-    /* Animated background gradient */
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(0, 217, 255, 0.05) 0%, transparent 50%);
-      animation: gradientShift 15s ease infinite;
-      z-index: 0;
-    }
-    
-    @keyframes gradientShift {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
-    }
-    
-    .container {
-      text-align: center;
-      max-width: 600px;
-      position: relative;
-      z-index: 1;
-    }
-    
-    /* Logo */
-    .logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 400;
-      font-size: clamp(48px, 10vw, 80px);
-      line-height: 1;
-      margin-bottom: 32px;
-      letter-spacing: -0.02em;
-    }
-    
-    .logo .r {
-      color: #00D9FF;
-    }
-    
-    .logo .evolve {
-      color: #ffffff;
-    }
-    
-    /* Tagline */
-    .tagline {
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(18px, 3.5vw, 24px);
-      font-weight: 500;
-      color: #CCCCCC;
-      margin-bottom: 60px;
-      letter-spacing: 0.05em;
-    }
-    
-    /* Coming Soon Badge */
-    .badge {
-      display: none;
-    }
-    
-    /* Contact Link */
-    .contact {
-      display: inline-block;
-      background: #00D9FF;
-      color: #0a0a0a;
-      padding: 16px 40px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 16px;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
-    }
-    
-    .contact:hover {
-      background: #00f0ff;
-      box-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
-      transform: translateY(-2px);
-    }
-    
-    .contact:active {
-      transform: translateY(0);
-    }
-    
-    /* Footer */
-    .footer {
-      position: absolute;
-      bottom: 30px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 13px;
-      color: #4A4A4A;
-      z-index: 1;
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 600px) {
-      .logo {
-        margin-bottom: 16px;
-      }
-      
-      .tagline {
-        margin-bottom: 50px;
-      }
-      
-      .badge {
-        display: none;
-      }
-      
-      .contact {
-        padding: 14px 32px;
-        font-size: 15px;
-      }
-      
-      .footer {
-        bottom: 20px;
-        font-size: 12px;
-        padding: 0 20px;
-      }
-    }
-  </style>
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            background-color: #0a0a0a;
+            color: #e8e8e8;
+        }
+
+        body.dark-mode .logo {
+            color: #ffffff;
+        }
+
+        body.dark-mode .tagline {
+            color: #a0a0a0;
+        }
+
+        body.dark-mode .hook-question {
+            color: #ffffff;
+        }
+
+        body.dark-mode .value-proposition {
+            color: #d0d0d0;
+        }
+
+        body.dark-mode .coagency-highlight {
+            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+            border-left-color: #3d8bff;
+        }
+
+        body.dark-mode .capabilities {
+            color: #3d8bff;
+        }
+
+        body.dark-mode .capability-item::after {
+            background: #3d8bff;
+        }
+
+        body.dark-mode .coagency-statement {
+            color: #ffffff;
+        }
+
+        body.dark-mode .characteristics {
+            color: #a0a0a0;
+        }
+
+        body.dark-mode .char-item {
+            border-right-color: #333333;
+        }
+
+        body.dark-mode .status {
+            color: #808080;
+        }
+
+        body.dark-mode .coming-soon {
+            color: #ffffff;
+        }
+
+        body.dark-mode .cta-button {
+            background-color: #3d8bff;
+        }
+
+        body.dark-mode .cta-button:hover {
+            background-color: #1a6fd9;
+        }
+
+        body.dark-mode footer {
+            color: #808080;
+            border-top-color: #252525;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: 2px solid #e9ecef;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            border-color: #0066cc;
+        }
+
+        body.dark-mode .theme-toggle {
+            border-color: #333333;
+        }
+
+        body.dark-mode .theme-toggle:hover {
+            border-color: #3d8bff;
+        }
+
+        header {
+            padding: 2rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: #495057;
+            font-weight: 400;
+            margin-bottom: 3rem;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .teaser-section {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .hook-question {
+            font-size: 1.75rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 2rem;
+            color: #1a1a1a;
+            letter-spacing: -0.02em;
+            white-space: nowrap;
+        }
+
+        .value-proposition {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            color: #2d2d2d;
+            font-weight: 400;
+        }
+
+        .coagency-highlight {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 4px solid #0066cc;
+            padding: 1.5rem 2rem;
+            margin: 2.5rem 0;
+            border-radius: 4px;
+        }
+
+        .capabilities {
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #0066cc;
+            white-space: nowrap;
+        }
+
+        .capability-item {
+            display: inline-block;
+            margin: 0 0.5rem;
+            white-space: nowrap;
+        }
+
+        .capability-item::after {
+            content: "";
+            display: inline-block;
+            width: 3px;
+            height: 3px;
+            background: #0066cc;
+            border-radius: 50%;
+            margin-left: 1rem;
+            vertical-align: middle;
+        }
+
+        .capability-item:last-child::after {
+            display: none;
+        }
+
+        .coagency-statement {
+            font-size: 1.0625rem;
+            font-style: italic;
+            color: #1a1a1a;
+            font-weight: 500;
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .characteristics {
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9375rem;
+            line-height: 2;
+            margin: 2rem 0;
+            color: #495057;
+            white-space: nowrap;
+        }
+
+        .char-item {
+            display: inline-block;
+            margin: 0 1rem 0.5rem 0;
+            padding-right: 1rem;
+            border-right: 1px solid #dee2e6;
+            white-space: nowrap;
+        }
+
+        .char-item:last-child {
+            border-right: none;
+            padding-right: 0;
+            margin-right: 0;
+        }
+
+        .status {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #6c757d;
+            margin: 2rem 0;
+        }
+
+        .coming-soon {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 3rem 0 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            background-color: #0066cc;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            background-color: #0052a3;
+        }
+
+        footer {
+            padding: 2rem;
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.875rem;
+            border-top: 1px solid #e9ecef;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .teaser-section > * {
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .teaser-section > *:nth-child(1) { animation-delay: 0.1s; }
+        .teaser-section > *:nth-child(2) { animation-delay: 0.2s; }
+        .teaser-section > *:nth-child(3) { animation-delay: 0.3s; }
+        .teaser-section > *:nth-child(4) { animation-delay: 0.4s; }
+        .teaser-section > *:nth-child(5) { animation-delay: 0.5s; }
+        .teaser-section > *:nth-child(6) { animation-delay: 0.6s; }
+        .teaser-section > *:nth-child(7) { animation-delay: 0.7s; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.125rem;
+            }
+
+            .hook-question {
+                font-size: 1.375rem;
+            }
+
+            .value-proposition {
+                font-size: 1rem;
+            }
+
+            .coagency-highlight {
+                padding: 1.25rem 1.5rem;
+            }
+
+            .capabilities {
+                font-size: 0.9375rem;
+            }
+
+            .capability-item {
+                display: block;
+                margin: 0.5rem 0;
+            }
+
+            .capability-item::after {
+                display: none;
+            }
+
+            .char-item {
+                display: block;
+                border-right: none;
+                margin: 0.5rem 0;
+                padding-right: 0;
+            }
+
+            .coming-soon {
+                font-size: 1.25rem;
+            }
+
+            .theme-toggle {
+                top: 1rem;
+                right: 1rem;
+                width: 44px;
+                height: 44px;
+                font-size: 1.125rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <span class="r">(r)</span><span class="evolve">evolve</span>
-    </div>
-    
-    <div class="tagline">Revolve to Evolve</div>
-    
-    <div class="badge">Coming Soon</div>
-    
-    <a href="mailto:kit@revolveteam.com" class="contact">Get in Touch</a>
-  </div>
-  
-  <div class="footer">
-    © 2025 Revolve Team LLC. All Rights Reserved.
-  </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <span id="themeIcon">🌙</span>
+    </button>
+
+    <header>
+        <h1 class="logo">(r)evolve</h1>
+        <p class="tagline">Revolve to Evolve</p>
+    </header>
+
+    <main>
+        <div class="teaser-section">
+            <p class="hook-question">What if your organization could evolve as fast as it operates?</p>
+
+            <p class="value-proposition">
+                We're building trusted AI-enhanced capabilities that revolutionize the loop
+                between operational observation and organizational action—
+                evolving lessons into readiness before the next mission begins.
+            </p>
+
+            <div class="coagency-highlight">
+                <p class="capabilities">
+                    <span class="capability-item">Human expertise.</span>
+                    <span class="capability-item">Machine precision.</span>
+                    <span class="capability-item">AI acceleration.</span>
+                    <span class="capability-item">Built on trust.</span>
+                </p>
+                <p class="coagency-statement">
+                    True coagency—where trusted collaboration creates revolutionary performance.
+                </p>
+            </div>
+
+            <p class="characteristics">
+                <span class="char-item">Trustworthy systems.</span>
+                <span class="char-item">Dual use.</span>
+                <span class="char-item">Edge AI.</span>
+                <span class="char-item">Hybrid intelligence.</span>
+                <span class="char-item">Mission speed.</span>
+            </p>
+            
+            <p class="status">Currently in stealth development.</p>
+
+            <a href="mailto:contact@revolveteam.com" class="cta-button">Get in Touch</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Revolve Team LLC. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeIcon.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
 </body>
 </html>

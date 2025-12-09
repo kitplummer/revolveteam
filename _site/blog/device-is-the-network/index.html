@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Device Is The Network | (r)evolve</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon-revolve.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', monospace;
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 102, 204, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 102, 204, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body.dark-mode {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+        }
+
+        body.light-mode {
+            background-color: #ffffff;
+            color: #1a1a1a;
+        }
+
+        body.light-mode::before {
+            background-image:
+                linear-gradient(rgba(0, 102, 204, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 102, 204, 0.06) 1px, transparent 1px);
+        }
+
+        body.light-mode .logo {
+            color: #1a1a1a;
+        }
+
+        body.light-mode .logo-r {
+            color: #0066cc;
+        }
+
+        body.light-mode .tagline {
+            color: #4b5563;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(13, 13, 13, 0.8);
+            border: 1px solid rgba(0, 102, 204, 0.3);
+            border-radius: 2px;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+            transition: all 0.2s ease;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-toggle:hover {
+            border-color: #0066cc;
+            background: rgba(0, 102, 204, 0.1);
+        }
+
+        body.light-mode .theme-toggle {
+            border-color: rgba(0, 102, 204, 0.3);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        body.light-mode .theme-toggle:hover {
+            border-color: #0066cc;
+        }
+
+        header {
+            padding: 1.5rem 2rem 0.75rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.375rem;
+            letter-spacing: -0.03em;
+            position: relative;
+            z-index: 1;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo:hover {
+            opacity: 0.9;
+        }
+
+        .logo-r {
+            color: #0066cc;
+        }
+
+        .tagline {
+            font-size: 0.875rem;
+            color: #6b7280;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        main {
+            flex: 1;
+            padding: 1rem;
+            position: relative;
+            z-index: 1;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        footer {
+            padding: 1rem;
+            text-align: center;
+            color: #4b5563;
+            font-size: 0.625rem;
+            border-top: 1px solid rgba(0, 102, 204, 0.1);
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.05em;
+        }
+
+        footer a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        body.light-mode footer {
+            color: #6b7280;
+        }
+
+        @media (max-width: 768px) {
+            body::before {
+                background-size: 30px 30px;
+            }
+
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 0.875rem;
+            }
+
+            main {
+                padding: 1.5rem 0.75rem;
+            }
+
+            .theme-toggle {
+                top: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 0.75rem;
+            }
+
+            main {
+                padding: 1rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <span id="themeIcon">☀️</span>
+    </button>
+
+    <header>
+        <a href="/" class="logo"><span class="logo-r">(r)</span>evolve</a>
+        <p class="tagline">Revolve to Evolve</p>
+    </header>
+
+    <main>
+        <style>
+    .post-container {
+        max-width: 760px;
+        margin: 0 auto;
+        background: rgba(13, 13, 13, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 102, 204, 0.15);
+        padding: 2.5rem;
+        border-radius: 2px;
+    }
+
+    body.light-mode .post-container {
+        background: rgba(255, 255, 255, 0.7);
+        border-color: rgba(0, 102, 204, 0.2);
+    }
+
+    .post-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(0, 102, 204, 0.2);
+    }
+
+    .post-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 0.75rem;
+        letter-spacing: -0.02em;
+        line-height: 1.3;
+    }
+
+    body.light-mode .post-title {
+        color: #1a1a1a;
+    }
+
+    .post-meta {
+        font-size: 0.75rem;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .post-content {
+        font-size: 0.9375rem;
+        line-height: 1.8;
+        color: #b0b0b0;
+    }
+
+    body.light-mode .post-content {
+        color: #4b5563;
+    }
+
+    .post-content h2 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #ffffff;
+        margin: 2rem 0 1rem;
+        letter-spacing: -0.01em;
+    }
+
+    body.light-mode .post-content h2 {
+        color: #1a1a1a;
+    }
+
+    .post-content h3 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #e0e0e0;
+        margin: 1.5rem 0 0.75rem;
+    }
+
+    body.light-mode .post-content h3 {
+        color: #374151;
+    }
+
+    .post-content p {
+        margin-bottom: 1.25rem;
+    }
+
+    .post-content strong {
+        color: #e0e0e0;
+        font-weight: 500;
+    }
+
+    body.light-mode .post-content strong {
+        color: #1a1a1a;
+    }
+
+    .post-content em {
+        font-style: italic;
+    }
+
+    .post-content ul, .post-content ol {
+        margin: 1rem 0 1.5rem 1.5rem;
+    }
+
+    .post-content li {
+        margin-bottom: 0.5rem;
+    }
+
+    .post-content a {
+        color: #0066cc;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.2s ease;
+    }
+
+    .post-content a:hover {
+        border-bottom-color: #0066cc;
+    }
+
+    .post-content blockquote {
+        border-left: 3px solid #0066cc;
+        margin: 1.5rem 0;
+        padding: 1rem 1.5rem;
+        background: rgba(0, 102, 204, 0.05);
+        font-style: italic;
+    }
+
+    .post-content code {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875em;
+        background: rgba(0, 102, 204, 0.1);
+        padding: 0.2em 0.4em;
+        border-radius: 2px;
+    }
+
+    .post-content pre {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 1rem;
+        border-radius: 2px;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+    }
+
+    .post-content pre code {
+        background: none;
+        padding: 0;
+    }
+
+    .post-content hr {
+        border: none;
+        border-top: 1px solid rgba(0, 102, 204, 0.2);
+        margin: 2rem 0;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(0, 102, 204, 0.2);
+        font-size: 0.75rem;
+        color: #0066cc;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .back-link:hover {
+        color: #3d8bff;
+    }
+
+    .back-link::before {
+        content: "< ";
+    }
+
+    @media (max-width: 768px) {
+        .post-container {
+            padding: 1.5rem;
+        }
+
+        .post-title {
+            font-size: 1.5rem;
+        }
+
+        .post-content {
+            font-size: 0.875rem;
+        }
+    }
+</style>
+
+<article class="post-container">
+    <header class="post-header">
+        <h1 class="post-title">The Device Is The Network</h1>
+        <p class="post-meta">December 08, 2025</p>
+    </header>
+
+    <div class="post-content">
+        <p><strong>The Internet was supposed to be different.</strong></p>
+
+<p>The original ARPANET designers understood something we’ve collectively forgotten: resilience comes from distribution. Every node was meant to be both consumer and producer, router and endpoint. The network existed <em>between</em> devices, not above them.</p>
+
+<p>Somewhere along the way, we traded that vision for convenience. The cloud promised infinite scale, seamless synchronization, always-on connectivity. What it delivered was dependency—on backbone infrastructure, on hyperscale data centers, on the assumption that the center will always hold.</p>
+
+<p><strong>The center doesn’t always hold.</strong></p>
+
+<p>In contested environments—whether that’s a tactical edge with degraded communications, a disaster zone with failed infrastructure, or simply a subway tunnel—the cloud becomes a single point of failure. Your device, with all its compute power, becomes a dumb terminal waiting for permission from a server it can’t reach.</p>
+
+<p>This isn’t just a military problem. It’s an architectural one.</p>
+
+<h2 id="what-if-the-device-itself-was-the-network">What if the device itself was the network?</h2>
+
+<p>Not as a fallback. Not as a degraded mode. As the <em>primary</em> design assumption.</p>
+
+<p>Every modern device carries more compute power than the systems that ran the early Internet. Your phone could coordinate with its neighbors. Your drone could route traffic for its peers. Your sensor could reason about its own data before deciding what—if anything—needs to flow upstream.</p>
+
+<p>This isn’t about abandoning hierarchy or coordination. It’s about relocating intelligence to where decisions actually happen: at the edge. The network emerges from the collective behavior of intelligent nodes, not from infrastructure imposed upon them.</p>
+
+<h2 id="stop-moving-data-start-moving-decisions">Stop moving data. Start moving decisions.</h2>
+
+<p>When every device is the network, you stop thinking about bandwidth as a pipe for raw data and start thinking about it as a channel for <em>meaning</em>. The question shifts from “how do I get this video to the cloud?” to “what does this video tell us, and who needs to know?”</p>
+
+<p>This is the architecture we’re building with HIVE—not because decentralization is ideologically pure, but because it’s the only approach that works when you can’t guarantee the center.</p>
+
+<p>The Internet’s original promise wasn’t about cloud services. It was about resilience through distribution. It’s time to remember that.</p>
+
+<hr />
+
+<p><em>This is the first in a series on the principles behind HIVE Protocol. Next: <a href="/blog/trust-distributed-system-problem">Trust as a Distributed System Problem</a></em></p>
+
+    </div>
+
+    <a href="/blog/" class="back-link">Back to Blog</a>
+</article>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Revolve Team LLC. All Rights Reserved. | <a href="/privacy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+            themeIcon.textContent = '🌙';
+        } else {
+            body.classList.add('dark-mode');
+            themeIcon.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>

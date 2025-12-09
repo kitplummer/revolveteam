@@ -1,0 +1,24 @@
+title: (r)evolve
+description: Revolve to Evolve
+url: https://revolveteam.com
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Exclude from processing
+exclude:
+  - README.md
+  - LICENSE
+
+# Collections for blog posts
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+# Permalink structure for posts
+permalink: /blog/:title/

@@ -1,66 +1,99 @@
 ---
 layout: post
-title: "The 20-Platform Wall: Why Human-Machine Teams Need a New Coordination Layer"
+title: "NATO's Unmanned Systems Standard: Right Problem, Wrong Model?"
 date: 2026-01-05
-excerpt: "Every program building autonomous systems hits the same wall around 20 platforms. This isn't a training problem — it's an architecture problem our current standards weren't designed to solve."
+excerpt: "STANAG 4817 aims to coordinate unmanned systems across domains. But its data-centric approach and closed development process work against the interoperability it's trying to achieve."
 ---
 
-# The 20-Platform Wall: Why Human-Machine Teams Need a New Coordination Layer
+# NATO's Unmanned Systems Standard: Right Problem, Wrong Model?
 
 *By Kit Plummer, (r)evolve*
 
 ---
 
-Every program building autonomous systems hits the same wall. Somewhere around 20 platforms, things fall apart. Operators get overwhelmed. Networks get saturated. Coordination breaks down.
+NATO is building a standard for coordinating unmanned systems across domains. It's called [STANAG 4817](https://www.janes.com/osint-insights/defence-and-national-security-analysis/stanag4817-nato-maritime-unmanned-systems-jigsaw), and it's being positioned as the backbone of future multi-domain operations — enabling drones, UUVs, and USVs from different nations to share data and operate together.
 
-This isn't a training problem or a UI problem. It's an architecture problem — and our current standards weren't designed to solve it.
+On paper, it sounds essential. In practice, there are problems — both with the approach and with how it's being developed.
 
-## The Math Nobody Talks About
+## What 4817 Is Trying to Do
 
-In peer-to-peer architectures where every node might communicate with every other node, connection complexity grows with the square of node count. Ten nodes means 45 possible connections. Twenty nodes means 190. A hundred nodes means 4,950.
+STANAG 4817 builds on [STANAG 4586](https://en.wikipedia.org/wiki/STANAG_4586), the existing NATO standard for UAV control interfaces. Where 4586 defined how an operator controls a single unmanned aircraft, 4817 extends to multi-domain: air, surface, and underwater systems coordinated from unified control stations.
 
-This isn't just networking overhead. It's an information management problem. If every platform needs awareness of every other platform's state, cognitive and computational load scales quadratically. The [Air Force Research Laboratory](https://www.afrl.af.mil/) and [NATO Human Factors panels](https://www.sto.nato.int/Pages/technical-team.aspx?k=(*)&s=Search%20HFM%20Activities) have validated this limit empirically — operators max out around 10-20 platforms with current systems.
+The standard incorporates the [Collaborative Autonomy Tasking Layer (CATL)](https://ieeexplore.ieee.org/document/10244669), a message format developed by [NATO's SCI-343 Research Task Group](https://www.sto.nato.int/) for sharing task and status information between autonomous systems. CATL has been tested at exercises like [REPMUS](https://www.yourdefensenews.com/repmus-2023-nato-tests-unmanned-maritime-systems-in-portugal/) and [Dynamic Messenger](https://www.act.nato.int/article/dynamic-messenger-22-an-opex-exercise-designed-for-the-future/), demonstrating interoperability between platforms from multiple nations.
 
-## Hierarchy Isn't Bureaucracy — It's Architecture
+The stated goals are reasonable:
+- Common data formats for unmanned systems across domains
+- Interoperability between different manufacturers and nations
+- Unified situational awareness through data fusion
 
-Here's the thing: military organizations solved this problem centuries ago. A squad leader doesn't track every vehicle in the battalion. They know their squad and get relevant information from adjacent and higher echelons. Information flows up aggregated, decisions flow down decomposed.
+So what's the problem?
 
-This structure reduces O(n²) complexity to O(n log n). It's not bureaucratic overhead. It's communication optimization.
+## The Transparency Problem
 
-Yet our technical standards ignore this. [STANAG 4586](https://en.wikipedia.org/wiki/STANAG_4586) defines how to control individual UAVs. [JAUS](https://en.wikipedia.org/wiki/JAUS) standardizes component interfaces. [DDS](https://www.omg.org/spec/DDS/) moves messages between nodes. All assume flat topologies where every node is equivalent.
+Try to find the STANAG 4817 specification. Or the CATL message schema. Or documentation on how the standard is being developed.
 
-There's no mechanism for aggregation. No representation of echelon relationships. No way to express "this platoon has these combined capabilities" versus listing every platform individually.
+We did. We're a defense contractor. We couldn't find it either.
 
-## The Transport Problem Compounds It
+The [Custodian Support Team](https://fourdrobotics.com/_sys/june-3-6-nato-stanag-4817-custodial-support-team-meeting-lockheed-martin-canada-cdl-systems-calgary/) meets periodically — hosted by organizations like Lockheed Martin Canada and NATO Centers of Excellence. Participants include representatives from NATO and Partnership for Peace nations. The work builds on recommendations from NATO Industrial Advisory Group studies (NIAG SG-157 and SG-202).
 
-[DDS](https://www.dds-foundation.org/) — the middleware underlying [ROS2](https://docs.ros.org/en/rolling/index.html) and referenced in DoD's [FACE standard](https://www.opengroup.org/face) — was designed for reliable, high-bandwidth networks. Its discovery protocol assumes multicast works. Its reliability model assumes retransmission is cheap.
+We know CATL exists because researchers reference it in [published papers](https://ieeexplore.ieee.org/document/10244669). We know exercises like REPMUS test it. We know it defines "four message types for task administration and data synchronization." But the actual schema? The message definitions? The protocol specification? Not publicly available — and apparently not available through normal defense industry channels either.
 
-On a 9600 baud tactical radio with 40% packet loss? DDS falls over. The ROS2 community [is actively decoupling from DDS](https://discourse.ros.org/t/ros-2-middleware-change-proposal/29313) precisely because it doesn't fit constrained environments.
+Compare this to how other standards are developed:
+- **IETF RFCs**: Public drafts, open mailing lists, anyone can comment
+- **W3C**: Public working drafts, community feedback periods
+- **IEEE**: Published specifications, academic participation
+- Even **SAE/JAUS**: While the final documents cost money, there are [open-source implementations](https://openjaus.com/) and public working groups
 
-Meanwhile, [STANAG 4817](https://www.janes.com/osint-insights/defence-and-national-security-analysis/stanag4817-nato-maritime-unmanned-systems-jigsaw) — NATO's emerging multi-domain control standard — reportedly addresses some coordination concerns. But the schemas aren't publicly available. There's no reference implementation. And nothing suggests it solves the fundamental scaling problem.
+If the goal is interoperability across nations and vendors, developing the standard behind closed doors is counterproductive. The companies that need to implement it can't see it. The researchers who could improve it can't review it. The broader defense industrial base is locked out until... when, exactly?
 
-## What's Actually Missing
+## The Bigger Problem: Data-Centric vs. Decision-Centric
 
-We have standards for platform control. We have middleware for moving bytes. We have frameworks for building robots. What we don't have is a **coordination layer** — common data structures for:
+Even setting aside transparency concerns, there's a more fundamental issue with the approach.
 
-- **Team composition** — representing humans, machines, and AI agents as team members
-- **Capability aggregation** — rolling up squad capabilities to platoon to company
-- **Task allocation** — distributing work across heterogeneous teams
-- **Shared state under stress** — synchronizing when networks partition
+The 4817/CATL model is built on a **data-centric** mental model:
+- Move data from sensors and platforms to control stations
+- Fuse that data into a "comprehensive operational picture"
+- Give commanders a "unified view" of the battlespace
 
-And critically, this layer needs to be designed for the real world: intermittent connectivity, bandwidth scarcity, and the hierarchical information flow that military operations actually require.
+This made sense when the constraint was information scarcity. Historically, commanders didn't have enough data. The solution was to collect more and aggregate it centrally.
 
-## The Gap
+But that's not the problem anymore. The problem now is **information overload**. Commanders are drowning in data. Adding more sensors, more platforms, and more data fusion doesn't help — it makes cognitive load worse.
 
-The [MITRE Human-Machine Teaming guide](https://www.mitre.org/sites/default/files/2021-11/prs-17-4208-human-machine-teaming-systems-engineering-guide.pdf) gives us design principles. NATO exercises like [REPMUS](https://www.yourdefensenews.com/repmus-2023-nato-tests-unmanned-maritime-systems-in-portugal/) test integration concepts. Research programs explore the art of the possible.
+AI-enhanced decision support requires the opposite approach — **decision-centric** rather than data-centric:
 
-But nobody has published an **open, formally specified data framework** for human-machine-AI team coordination at scale. Every program builds its own. Coalition interoperability remains a dream. And we keep hitting the 20-platform wall.
+| Data-Centric (4817 model) | Decision-Centric (what's needed) |
+|---------------------------|----------------------------------|
+| Move data to where decisions happen | Move decisions to where data lives |
+| Comprehensive operational picture | Filtered, contextual information |
+| More data = better awareness | Right data = better decisions |
+| Centralized fusion | Distributed processing |
+| Human processes the picture | AI reduces cognitive load |
 
----
+The goal shouldn't be showing commanders everything. It should be showing them **only what they need to decide**, with the supporting context, at the moment they need it.
 
-At [(r)evolve](https://revolveteam.com), we're working on this problem — building on coordination concepts we first explored under [DIU's Common Operational Database (COD)](https://www.diu.mil/) program. We think the solution requires conflict-free data structures, native hierarchy support, and schemas designed for tactical networks.
+This isn't just a UI problem. It's an architectural problem. A standard designed around "unified view" and "data fusion" bakes in assumptions that work against effective AI integration.
 
-More to share soon. If you're working on similar challenges, [we'd like to hear from you](mailto:kit@revolveteam.com).
+## What Would Actually Help
+
+For human-machine-AI teams to operate effectively at scale, we need coordination frameworks that:
+
+**Support hierarchical information flow.** Military organizations aggregate information as it flows up and decompose decisions as they flow down. Flat data-sharing models don't match how operations actually work.
+
+**Enable distributed processing.** AI and autonomy should filter, prioritize, and pre-process at the edge — not just add more streams to a central fusion engine.
+
+**Reduce cognitive load.** The measure of success isn't how much data reaches the commander. It's how little data reaches the commander while still enabling good decisions.
+
+**Work in contested networks.** Tactical communications are bandwidth-limited, high-latency, and unreliable. Standards that assume enterprise connectivity will fail in the field.
+
+**Are actually open.** If interoperability is the goal, the specifications need to be public. Implementations need to be testable. Participation needs to be accessible beyond the current defense insider club.
+
+## Where We're Focused
+
+At [(r)evolve](https://revolveteam.com), we're working on coordination infrastructure for human-machine-AI teams — building on concepts we first explored under [DIU's Common Operational Database (COD)](https://www.diu.mil/) program.
+
+We think the solution requires a different starting point: decision-centric rather than data-centric, hierarchical rather than flat, designed for contested networks rather than enterprise connectivity. And we think it needs to be developed in the open.
+
+More to share soon. If you're working on similar challenges — or frustrated by the same gaps — [we'd like to hear from you](mailto:kit@revolveteam.com).
 
 ---
 

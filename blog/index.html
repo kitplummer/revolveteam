@@ -116,6 +116,35 @@ title: Blog
         content: "< ";
     }
 
+    .rss-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        font-size: 0.6875rem;
+        color: #6b7280;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        transition: color 0.2s ease;
+    }
+
+    .rss-link:hover {
+        color: #0066cc;
+    }
+
+    .rss-link svg {
+        width: 14px;
+        height: 14px;
+        fill: currentColor;
+    }
+
+    .blog-header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+
     .no-posts {
         color: #6b7280;
         font-size: 0.875rem;
@@ -139,7 +168,13 @@ title: Blog
 
 <div class="blog-container">
     <header class="blog-header">
-        <h1 class="blog-title">Blog</h1>
+        <div class="blog-header-top">
+            <h1 class="blog-title">Blog</h1>
+            <a href="/feed.xml" class="rss-link" title="Subscribe via RSS">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+                RSS
+            </a>
+        </div>
         <p class="blog-subtitle">Thoughts on human-machine teaming, distributed systems, and building the future.</p>
     </header>
 

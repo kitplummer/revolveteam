@@ -7,6 +7,10 @@ baseurl: ""
 markdown: kramdown
 highlighter: rouge
 
+# Plugins
+plugins:
+  - jekyll-feed
+
 # Exclude from processing
 exclude:
   - README.md

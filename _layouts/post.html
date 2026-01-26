@@ -150,6 +150,52 @@ layout: default
         margin: 2rem 0;
     }
 
+    .post-content img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 1.5rem auto;
+        border-radius: 2px;
+    }
+
+    .post-content img + em {
+        display: block;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #6b7280;
+        margin-top: -1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .post-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+        font-size: 0.875rem;
+    }
+
+    .post-content th,
+    .post-content td {
+        border: 1px solid rgba(0, 102, 204, 0.3);
+        padding: 0.75rem 1rem;
+        text-align: left;
+    }
+
+    .post-content th {
+        background: rgba(0, 102, 204, 0.1);
+        font-weight: 600;
+        color: #e0e0e0;
+    }
+
+    body.light-mode .post-content th {
+        color: #1a1a1a;
+        background: rgba(0, 102, 204, 0.08);
+    }
+
+    .post-content tr:nth-child(even) {
+        background: rgba(0, 102, 204, 0.03);
+    }
+
     .back-link {
         display: inline-block;
         margin-top: 2rem;
